@@ -52,12 +52,13 @@ const updateData = async (req, res) => {
         if (!findProductId) return failureHandler.manageError(req, res, `Products Not Found !`, 'notFound');
 
         let dbPayload = findProductId;
+        dbPayload.productCategory = payload.productCategory;
         dbPayload.productName = payload.productName;
         dbPayload.productDescription = payload.productDescription;
         dbPayload.updatedAt = new Date();
         await db.update('products', `productId $eq "${payload.productId}"`, dbPayload).then(result => console.log('Product Updated !')).catch(err => console.log('Error: updating products !', err));
 
-        return res.status(200).json({ code: 200, message: "Success Product Inserted!", result: payload });
+        return res.status(200).json({ code: 200, message: "Success Product Updated!", result: payload });
     } catch (exception) {
         console.error(exception)
         return failureHandler.manageError(req, res, exception.message ? 'ERROR: Forbidden' : exception, exception.message ? 'forbidden' : 'badRequest');

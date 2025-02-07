@@ -29,7 +29,7 @@ const handler = (app) => {
         crud.insertData(req, res)
     })
     
-    app.post('/updateProduct', (req, res) => {
+    app.put('/updateProduct', (req, res) => {
         crud.updateData(req, res)
     })
 
